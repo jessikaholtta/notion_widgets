@@ -37,4 +37,40 @@
     </style>
 </head>
 <body>
-    <div class="
+    <div class="widget">
+        <div class="message">It's a good day to read.</div>
+        <div class="date" id="date"></div>
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <script>
+        function updateWidget() {
+            const today = new Date();
+
+            // Format the date
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            const month = monthNames[today.getMonth()];
+            const date = String(today.getDate()).padStart(2, '0');
+            const year = today.getFullYear();
+
+            // Format the time
+            const hours = String(today.getHours()).padStart(2, '0');
+            const minutes = String(today.getMinutes()).padStart(2, '0');
+            const seconds = String(today.getSeconds()).padStart(2, '0');
+
+            // Display the date and time
+            document.getElementById('date').textContent = `${month} ${date}, ${year}`;
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update the widget every second
+        setInterval(updateWidget, 1000);
+
+        // Initial call to display immediately
+        updateWidget();
+    </script>
+</body>
+</html>
