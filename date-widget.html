@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date Widget</title>
+    <title>Reading Widget</title>
 
     <style>
         body {
-            font-family: serif;
+            font-family: "Times New Roman", serif;
             background-color: #f4eeee;
             color: #000000;
             display: flex;
@@ -18,64 +18,23 @@
         }
 
         .widget {
-            padding: 20px;
+            padding: 15px; /* Reduced padding to make it smaller */
             text-align: center;
-            border: 3px solid #000000;
+            border: 1px solid #000000; /* Thinner border */
             border-radius: 10px;
-            box-shadow: 4px 4px 2px 0px #000000;
         }
 
         .message {
-            font-size: 2em;
+            font-size: 1.75em; /* Reduced font size slightly */
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Adjusted spacing */
         }
 
-        .date {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .clock {
-            font-size: 1.5em;
+        .date, .clock {
+            font-size: 1.25em; /* Reduced font size slightly */
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="widget">
-        <div class="message">It's a good day to read.</div>
-        <div class="date" id="date"></div>
-        <div class="clock" id="clock"></div>
-    </div>
-
-    <script>
-        function updateWidget() {
-            const today = new Date();
-
-            // Format the date
-            const monthNames = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
-            const month = monthNames[today.getMonth()];
-            const date = String(today.getDate()).padStart(2, '0');
-            const year = today.getFullYear();
-
-            // Format the time
-            const hours = String(today.getHours()).padStart(2, '0');
-            const minutes = String(today.getMinutes()).padStart(2, '0');
-            const seconds = String(today.getSeconds()).padStart(2, '0');
-
-            // Display the date and time
-            document.getElementById('date').textContent = `${month} ${date}, ${year}`;
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-
-        // Update the widget every second
-        setInterval(updateWidget, 1000);
-
-        // Initial call to display immediately
-        updateWidget();
-    </script>
-</body>
-</html>
+    <div class="
