@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: "Times New Roman", serif;
-            background-color: #ffffff; /* Outer page background */
+            background-color: #ffffff; /* White background outside the box */
             color: #000000;
             display: flex;
             justify-content: center;
@@ -17,22 +17,18 @@
             margin: 0;
         }
 
-        .outer-widget {
-            background-color: #f4eeee; /* Slightly extended background */
-            padding: 2mm; /* Thickness of the outer border */
-        }
-
-        .inner-widget {
-            padding: 10px; /* Padding inside the main box */
+        .widget {
+            padding: 10px; /* Compact padding */
             text-align: center;
-            border: 1px solid #000000; /* Thin black border */
-            background-color: #ffffff; /* Inner box background (white) */
-            width: 300px; /* Fixed width */
-            box-sizing: border-box; /* Includes border and padding in the width */
+            border: 1.1px solid #000000; /* Thin border */
+            background-color: #f4eeee; /* Background color inside the box */
+            box-shadow: none; /* Removed shadow */
+            border-radius: 0; /* Square corners */
+            width: 300px; /* Fixed width to prevent overflow */
         }
 
         .message {
-            font-size: 1.25em; /* Smaller font size */
+            font-size: 1.1em; /* Smaller font size */
             font-weight: bold;
             text-transform: uppercase; /* Converts text to all caps */
             margin-bottom: 10px; /* Adjusted spacing */
@@ -46,12 +42,10 @@
     </style>
 </head>
 <body>
-    <div class="outer-widget">
-        <div class="inner-widget">
-            <div class="message">IT'S A GOOD DAY TO READ.</div>
-            <div class="date" id="date"></div>
-            <div class="clock" id="clock"></div>
-        </div>
+    <div class="widget">
+        <div class="message">IT'S A GOOD DAY TO READ</div>
+        <div class="date" id="date"></div>
+        <div class="clock" id="clock"></div>
     </div>
 
     <script>
