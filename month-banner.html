@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Month Display</title>
+
+    <!-- Google Fonts for styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff; /* White background */
+            font-family: 'Kaushan Script', cursive; /* Fancy font for display */
+        }
+
+        .message {
+            font-size: 3em;
+            color: pink; /* Pink font color */
+            letter-spacing: 0.1em; /* Space between letters */
+        }
+
+        .dot {
+            color: black; /* Black dots for contrast */
+        }
+    </style>
+</head>
+<body>
+    <div class="message" id="monthMessage"></div>
+
+    <script>
+        // JavaScript to dynamically generate the month with the "dot" format
+        function getFormattedMonth() {
+            const monthNames = [
+                "J·A·N·U·A·R·Y", "F·E·B·R·U·A·R·Y", "M·A·R·C·H", "A·P·R·I·L", 
+                "M·A·Y", "J·U·N·E", "J·U·L·Y", "A·U·G·U·S·T", 
+                "S·E·P·T·E·M·B·E·R", "O·C·T·O·B·E·R", "N·O·V·E·M·B·E·R", "D·E·C·E·M·B·E·R"
+            ];
+            const today = new Date();
+            return monthNames[today.getMonth()];
+        }
+
+        // Insert the formatted month into the HTML
+        document.getElementById('monthMessage').innerHTML = getFormattedMonth();
+    </script>
+</body>
+</html>
