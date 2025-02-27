@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Month Display</title>
+
+    <!-- Google Fonts for styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff; /* White background */
+            font-family: 'Kaushan Script', cursive; /* Fancy font for display */
+        }
+
+        .message {
+            font-size: 3em;
+            color: pink; /* Pink font color */
+            letter-spacing: 0.2em; /* Space between letters */
+        }
+    </style>
+</head>
+<body>
+    <div class="message" id="monthMessage"></div>
+
+    <script>
+        // Mapping months to blackboard bold letters
+        const monthMap = {
+            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
+            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
+            4: "𝕄⋅𝔸⋅𝕐",
+            5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
+            6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
+            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
+            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
+            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+        };
+
+        // Get the current month and display the formatted version
+        const today = new Date();
+        document.getElementById('monthMessage').innerHTML = monthMap[today.getMonth()];
+    </script>
+</body>
+</html>
