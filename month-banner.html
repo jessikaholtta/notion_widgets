@@ -22,11 +22,7 @@
         .message {
             font-size: 3em;
             color: pink; /* Pink font color */
-            letter-spacing: 0.1em; /* Space between letters */
-        }
-
-        .dot {
-            color: black; /* Black dots for contrast */
+            letter-spacing: 0.2em; /* Space between letters */
         }
     </style>
 </head>
@@ -34,19 +30,25 @@
     <div class="message" id="monthMessage"></div>
 
     <script>
-        // JavaScript to dynamically generate the month with the "dot" format
-        function getFormattedMonth() {
-            const monthNames = [
-                "J·A·N·U·A·R·Y", "F·E·B·R·U·A·R·Y", "M·A·R·C·H", "A·P·R·I·L", 
-                "M·A·Y", "J·U·N·E", "J·U·L·Y", "A·U·G·U·S·T", 
-                "S·E·P·T·E·M·B·E·R", "O·C·T·O·B·E·R", "N·O·V·E·M·B·E·R", "D·E·C·E·M·B·E·R"
-            ];
-            const today = new Date();
-            return monthNames[today.getMonth()];
-        }
+        // Mapping months to blackboard bold letters
+        const monthMap = {
+            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
+            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
+            4: "𝕄⋅𝔸⋅𝕐",
+            5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
+            6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
+            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
+            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
+            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+        };
 
-        // Insert the formatted month into the HTML
-        document.getElementById('monthMessage').innerHTML = getFormattedMonth();
+        // Get the current month and display the formatted version
+        const today = new Date();
+        document.getElementById('monthMessage').innerHTML = monthMap[today.getMonth()];
     </script>
 </body>
 </html>
