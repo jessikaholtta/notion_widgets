@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Month Display</title>
+    <title>Dynamic Date Display</title>
 
     <!-- Google Fonts for styling -->
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
@@ -21,13 +21,14 @@
 
         .message {
             font-size: 3em;
-            color: pink; /* Pink font color */
+            color: #F8C8DC; /* Soft pastel pink */
             letter-spacing: 0.2em; /* Space between letters */
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="message" id="monthMessage"></div>
+    <div class="message" id="dateMessage"></div>
 
     <script>
         // Mapping months to blackboard bold letters
@@ -46,9 +47,27 @@
             11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
         };
 
-        // Get the current month and display the formatted version
+        // Mapping numbers to blackboard bold digits
+        const numberMap = {
+            "0": "𝟘", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
+            "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
+        };
+
+        // Function to convert numbers into blackboard bold style with dots
+        function convertToBlackboardBold(num) {
+            return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
+        }
+
+        // Get today's date
         const today = new Date();
-        document.getElementById('monthMessage').innerHTML = monthMap[today.getMonth()];
+        const month = monthMap[today.getMonth()]; // Get month in blackboard bold
+        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚⋅𝟟)
+
+        // Format the final output: Month · Day
+        const formattedDate = `${month}⋅${day}`;
+
+        // Insert into HTML
+        document.getElementById('dateMessage').innerHTML = formattedDate;
     </script>
 </body>
 </html>
