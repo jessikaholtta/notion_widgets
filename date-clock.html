@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Clock and Date Display</title>
+    <title>Dynamic Date and Time Display</title>
+
+    <!-- Google Fonts for styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -12,51 +15,48 @@
             align-items: center;
             height: 100vh;
             background-color: #ffffff;
-            font-family: Arial, sans-serif;
+            font-family: 'Kaushan Script', cursive;
             text-align: center;
         }
 
-        .clock-container {
+        .message {
+            font-size: 1.5em; /* Larger size for date */
+            color: #F8C8DC;
+            letter-spacing: 0.2em;
             margin-bottom: 20px;
         }
 
         .digital-clock {
-            font-size: 3em;
+            font-size: 1.2em; /* Smaller size for time */
             color: #F8C8DC;
             letter-spacing: 0.1em;
-            font-family: 'Kaushan Script', cursive; /* Added this to match the style */
-        }
-
-        .date {
-            font-size: 1.5em;
-            color: #F8C8DC;
-            letter-spacing: 0.1em;
-            margin-bottom: 20px;
+            font-family: 'Kaushan Script', cursive;
         }
     </style>
 </head>
 <body>
 
-    <div class="date" id="dateMessage"></div>
-    <div class="clock-container">
-        <div class="digital-clock" id="digitalClock"></div>
-    </div>
+    <!-- Date Display -->
+    <div class="message" id="dateMessage"></div>
+
+    <!-- Time Display -->
+    <div class="digital-clock" id="digitalClock"></div>
 
     <script>
         // Mapping months to blackboard bold letters
         const monthMap = {
-            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐", // January
-            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐", // February
-            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ", // March
-            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃", // April
-            4: "𝕄⋅𝔸⋅𝕐", // May
-            5: "𝕁⋅𝕌⋅ℕ⋅𝔼", // June
-            6: "𝕁⋅𝕌⋅𝕃⋅𝕐", // July
-            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋", // August
-            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ", // September
-            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ", // October
-            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ", // November
-            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ" // December
+            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
+            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
+            4: "𝕄⋅𝔸⋅𝕐",
+            5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
+            6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
+            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
+            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
+            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
         };
 
         // Mapping numbers to blackboard bold digits
@@ -70,41 +70,32 @@
             return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
         }
 
-        // Function to update the digital clock
+        // Get today's date
+        const today = new Date();
+        const month = monthMap[today.getMonth()]; // Get month in blackboard bold
+        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚⋅𝟟)
+
+        // Format the final output: Month · Day
+        const formattedDate = `${month}⋅${day}`;
+
+        // Insert into HTML for date
+        document.getElementById('dateMessage').innerHTML = formattedDate;
+
+        // Function to format the current time in 24-hour format with your custom font
         function updateClock() {
             const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-
-            // Format time in 24-hour format (adding leading zero for single digits)
-            const formattedTime = `${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(seconds)}`;
-            document.getElementById("digitalClock").innerHTML = formattedTime;
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}⋅${minutes}⋅${seconds}`;
+            document.getElementById('digitalClock').innerHTML = timeString;
         }
 
-        // Helper function to format numbers to have a leading zero when needed
-        function formatNumber(num) {
-            return num < 10 ? "𝟘" + num : num;
-        }
-
-        // Function to update the date
-        function updateDate() {
-            const today = new Date();
-            const month = monthMap[today.getMonth()]; // Get month in blackboard bold
-            const day = convertToBlackboardBold(today.getDate()); // Convert day to blackboard bold
-
-            const formattedDate = `${month}⋅${day}`;
-            document.getElementById("dateMessage").innerHTML = formattedDate;
-        }
-
-        // Update the clock and date every second and minute
+        // Update the clock every second
         setInterval(updateClock, 1000);
-        setInterval(updateDate, 60000);
 
-        // Initial call to set the clock and date
+        // Initialize the clock immediately
         updateClock();
-        updateDate();
     </script>
-
 </body>
 </html>
