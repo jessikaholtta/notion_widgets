@@ -55,7 +55,7 @@
             8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
             9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
             10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
-            11: "𝔻⋅𝔼⋅ℂ⋅ℼ⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
         };
 
         // Mapping numbers to blackboard bold digits
@@ -80,12 +80,12 @@
         // Insert into HTML for date
         document.getElementById('dateMessage').innerHTML = formattedDate;
 
-        // Function to format the current time in 24-hour format with your custom font
+        // Function to format the current time in blackboard bold with dots
         function updateClock() {
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const hours = convertToBlackboardBold(now.getHours().toString().padStart(2, '0'));
+            const minutes = convertToBlackboardBold(now.getMinutes().toString().padStart(2, '0'));
+            const seconds = convertToBlackboardBold(now.getSeconds().toString().padStart(2, '0'));
             const timeString = `${hours}⋅${minutes}⋅${seconds}`;
             document.getElementById('digitalClock').innerHTML = timeString;
         }
