@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Date and Time Display</title>
+
+    <!-- Google Fonts for styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: 'Kaushan Script', cursive; /* Ensuring both date and time use the same font */
+            text-align: center;
+        }
+
+        .message {
+            font-size: 1.5em; /* Larger size for date */
+            color: #F8C8DC;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+        }
+
+        .digital-clock {
+            font-size: 1.2em; /* Smaller size for time */
+            color: #F8C8DC;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Date Display -->
+    <div class="message" id="dateMessage"></div>
+
+    <!-- Time Display -->
+    <div class="digital-clock" id="digitalClock"></div>
+
+    <script>
+        // Mapping months to blackboard bold letters
+        const monthMap = {
+            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
+            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
+            4: "𝕄⋅𝔸⋅𝕐",
+            5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
+            6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
+            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
+            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
+            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            11: "𝔻⋅𝔼⋅ℂ⋅ℼ⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+        };
+
+        // Mapping numbers to blackboard bold digits
+        const numberMap = {
+            "0": "𝟘", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
+            "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
+        };
+
+        // Function to convert numbers into blackboard bold style with dots
+        function convertToBlackboardBold(num) {
+            return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
+        }
+
+        // Get today's date
+        const today = new Date();
+        const month = monthMap[today.getMonth()]; // Get month in blackboard bold
+        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚⋅𝟟)
+
+        // Format the final output: Month · Day
+        const formattedDate = `${month}⋅${day}`;
+
+        // Insert into HTML for date
+        document.getElementById('dateMessage').innerHTML = formattedDate;
+
+        // Function to format the current time in 24-hour format with your custom font
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}⋅${minutes}⋅${seconds}`;
+            document.getElementById('digitalClock').innerHTML = timeString;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+
+        // Initialize the clock immediately
+        updateClock();
+    </script>
+</body>
+</html>
