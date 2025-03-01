@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Clock with Time Zone</title>
+    <title>24h Digital Clock</title>
 
     <style>
         body {
@@ -13,35 +13,39 @@
             height: 100vh;
             background-color: #ffffff;
             font-family: Arial, sans-serif;
-            flex-direction: column;
         }
 
         .clock {
-            font-size: 3em;
-            color: #333;
+            font-size: 4em;
+            color: #F8C8DC; /* Soft pastel pink */
             font-weight: bold;
-        }
-
-        .timezone {
-            font-size: 1.2em;
-            color: #666;
-            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="clock" id="clock"></div>
-    <div class="timezone" id="timezone"></div>
 
     <script>
+        // Mapping numbers to blackboard bold digits
+        const numberMap = {
+            "0": "𝟘", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
+            "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
+        };
+
+        // Function to convert numbers into blackboard bold style
+        function convertToBlackboardBold(num) {
+            return String(num).split("").map(digit => numberMap[digit] || digit).join("");
+        }
+
         function updateClock() {
             const now = new Date();
-            const timeString = now.toLocaleTimeString(); // Gets time based on user's time zone
-            document.getElementById("clock").textContent = timeString;
-            
-            // Display the time zone name
-            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            document.getElementById("timezone").textContent = `Time Zone: ${timeZone}`;
+            let hours = now.getHours().toString().padStart(2, '0');  // 24-hour format
+            let minutes = now.getMinutes().toString().padStart(2, '0'); 
+
+            // Convert to blackboard bold style
+            const formattedTime = `${convertToBlackboardBold(hours)}:${convertToBlackboardBold(minutes)}`;
+
+            document.getElementById("clock").textContent = formattedTime;
         }
 
         setInterval(updateClock, 1000); // Update the clock every second
