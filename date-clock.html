@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock and Date Display</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .clock-container {
+            margin-bottom: 20px;
+        }
+
+        .digital-clock {
+            font-size: 3em;
+            color: #F8C8DC;
+            letter-spacing: 0.1em;
+        }
+
+        .date {
+            font-size: 1.5em;
+            color: #F8C8DC;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="date" id="dateMessage"></div>
+    <div class="clock-container">
+        <div class="digital-clock" id="digitalClock"></div>
+    </div>
+
+    <script>
+        // Mapping months to blackboard bold letters
+        const monthMap = {
+            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
+            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
+            4: "𝕄⋅𝔸⋅𝕐",
+            5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
+            6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
+            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
+            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
+            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+        };
+
+        // Mapping numbers to blackboard bold digits
+        const numberMap = {
+            "0": "𝟘", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
+            "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
+        };
+
+        // Function to convert numbers into blackboard bold style with dots
+        function convertToBlackboardBold(num) {
+            return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
+        }
+
+        // Function to update the digital clock
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // Format time in 24-hour format (adding leading zero for single digits)
+            const formattedTime = `${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(seconds)}`;
+            document.getElementById("digitalClock").innerHTML = formattedTime;
+        }
+
+        // Helper function to format numbers to have a leading zero when needed
+        function formatNumber(num) {
+            return num < 10 ? "𝟘" + num : num;
+        }
+
+        // Function to update the date
+        function updateDate() {
+            const today = new Date();
+            const month = monthMap[today.getMonth()]; // Get month in blackboard bold
+            const day = convertToBlackboardBold(today.getDate()); // Convert day to blackboard bold
+
+            const formattedDate = `${month}⋅${day}`;
+            document.getElementById("dateMessage").innerHTML = formattedDate;
+        }
+
+        // Update the clock and date every second and minute
+        setInterval(updateClock, 1000);
+        setInterval(updateDate, 60000);
+
+        // Initial call to set the clock and date
+        updateClock();
+        updateDate();
+    </script>
+
+</body>
+</html>
