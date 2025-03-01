@@ -3,71 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Date Display</title>
-
-    <!-- Google Fonts for styling -->
-    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <title>Analog Clock</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #ffffff; /* White background */
-            font-family: 'Kaushan Script', cursive; /* Fancy font for display */
+            background-color: #ffffff;
         }
 
-        .message {
-            font-size: 1.5em; /* Reduced size to one-fourth */
-            color: #F8C8DC; /* Soft pastel pink */
-            letter-spacing: 0.15em; /* Slightly reduced spacing */
-            text-align: center;
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 6px solid #F8C8DC; /* Soft pink border */
+            border-radius: 50%;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%) rotate(0deg);
+            transition: transform 0.1s linear;
+            border-radius: 6px;
+        }
+
+        .hour-hand {
+            width: 6px;
+            height: 50px;
+            background-color: #F8C8DC;
+        }
+
+        .minute-hand {
+            width: 4px;
+            height: 70px;
+            background-color: #F8C8DC;
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 80px;
+            background-color: #F8C8DC;
+        }
+
+        .center-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #F8C8DC;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
-    <div class="message" id="dateMessage"></div>
+    <div class="clock">
+        <div class="hand hour-hand" id="hourHand"></div>
+        <div class="hand minute-hand" id="minuteHand"></div>
+        <div class="hand second-hand" id="secondHand"></div>
+        <div class="center-dot"></div>
+    </div>
 
     <script>
-        // Mapping months to blackboard bold letters
-        const monthMap = {
-            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
-            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
-            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
-            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
-            4: "𝕄⋅𝔸⋅𝕐",
-            5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
-            6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
-            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
-            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
-            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
-            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
-            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
-        };
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
 
-        // Mapping numbers to blackboard bold digits
-        const numberMap = {
-            "0": "𝟘", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
-            "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
-        };
+            const hourDeg = (hours % 12) * 30 + minutes * 0.5; // 360° / 12 = 30° per hour
+            const minuteDeg = minutes * 6 + seconds * 0.1; // 360° / 60 = 6° per minute
+            const secondDeg = seconds * 6; // 360° / 60 = 6° per second
 
-        // Function to convert numbers into blackboard bold style with dots
-        function convertToBlackboardBold(num) {
-            return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
+            document.getElementById("hourHand").style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById("minuteHand").style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById("secondHand").style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
         }
 
-        // Get today's date
-        const today = new Date();
-        const month = monthMap[today.getMonth()]; // Get month in blackboard bold
-        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚⋅𝟟)
-
-        // Format the final output: Month · Day
-        const formattedDate = `${month}⋅${day}`;
-
-        // Insert into HTML
-        document.getElementById('dateMessage').innerHTML = formattedDate;
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 </html>
