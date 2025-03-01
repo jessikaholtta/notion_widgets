@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock & Date Display</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        .clock {
+            width: 120px;  /* 60% of original 200px */
+            height: 120px;
+            border: 4px solid #F8C8DC; /* Soft pink border */
+            border-radius: 50%;
+            position: relative;
+            background: white;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            transform: translateX(-50%) rotate(0deg);
+            transition: transform 0.1s linear;
+            border-radius: 6px;
+        }
+
+        .hour-hand {
+            width: 4px;
+            height: 30px;
+            background-color: #F8C8DC;
+        }
+
+        .minute-hand {
+            width: 2.4px;
+            height: 42px;
+            background-color: #F8C8DC;
+        }
+
+        .second-hand {
+            width: 1.2px;
+            height: 48px;
+            background-color: #F8C8DC;
+        }
+
+        .center-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #F8C8DC;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .date {
+            font-size: 1.5em;
+            color: #F8C8DC;
+            letter-spacing: 0.15em;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clock">
+        <div class="hand hour-hand" id="hourHand"></div>
+        <div class="hand minute-hand" id="minuteHand"></div>
+        <div class="hand second-hand" id="secondHand"></div>
+        <div class="center-dot"></div>
+    </div>
+
+    <div class="date" id="dateMessage"></div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+            const minuteDeg = minutes * 6 + seconds * 0.1;
+            const secondDeg = seconds * 6;
+
+            document.getElementById("hourHand").style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById("minuteHand").style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.getElementById("secondHand").style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+        }
+
+        function updateDate() {
+            const monthMap = {
+                0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+                1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+                2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
+                3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
+                4: "𝕄⋅𝔸⋅𝕐",
+                5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
+                6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
+                7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
+                8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+                9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
+                10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+                11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+            };
+
+            const numberMap = {
+                "0": "𝟘", "1": "𝟙", "2": "𝟚", "3": "𝟛", "4": "𝟜",
+                "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
+            };
+
+            function convertToBlackboardBold(num) {
+                return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
+            }
+
+            const today = new Date();
+            const month = monthMap[today.getMonth()];
+            const day = convertToBlackboardBold(today.getDate());
+
+            document.getElementById('dateMessage').innerHTML = `${month}⋅${day}`;
+        }
+
+        setInterval(updateClock, 1000);
+        setInterval(updateDate, 60000);
+        updateClock();
+        updateDate();
+    </script>
+
+</body>
+</html>
