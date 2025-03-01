@@ -16,9 +16,9 @@
         }
 
         .clock {
-            width: 120px;  /* 60% of original 200px */
+            width: 120px;
             height: 120px;
-            border: 4px solid #F8C8DC; /* Soft pink border */
+            border: 4px solid #F8C8DC;
             border-radius: 50%;
             position: relative;
             background: white;
@@ -101,11 +101,21 @@
         }
 
         function updateDate() {
-            // Regular text for months
-            const monthNames = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
+            // Custom mapping for month names to uppercase blackboard bold letters
+            const monthMap = {
+            0: "𝕁⋅𝔸⋅ℕ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            1: "𝔽⋅𝔼⋅𝔹⋅ℝ⋅𝕌⋅𝔸⋅ℝ⋅𝕐",
+            2: "𝕄⋅𝔸⋅ℝ⋅ℂ⋅ℍ",
+            3: "𝔸⋅ℙ⋅ℝ⋅𝕀⋅𝕃",
+            4: "𝕄⋅𝔸⋅𝕐",
+            5: "𝕁⋅𝕌⋅ℕ⋅𝔼",
+            6: "𝕁⋅𝕌⋅𝕃⋅𝕐",
+            7: "𝔸⋅𝕌⋅𝔾⋅𝕌⋅𝕊⋅𝕋",
+            8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
+            10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
+            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+            };
 
             // Mapping numbers to blackboard bold digits
             const numberMap = {
@@ -114,14 +124,14 @@
             };
 
             function convertToBlackboardBold(num) {
-                return String(num).split("").map(digit => numberMap[digit] || digit).join("");
+                return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
             }
 
             const today = new Date();
-            const month = monthNames[today.getMonth()]; // Regular month name
-            const day = convertToBlackboardBold(today.getDate()); // Blackboard bold day (e.g., 𝟚𝟟)
+            const month = monthMap[today.getMonth()]; 
+            const day = convertToBlackboardBold(today.getDate()); 
 
-            document.getElementById('dateMessage').innerHTML = `${month} ${day}`;
+            document.getElementById('dateMessage').innerHTML = `${month}⋅${day}`;
         }
 
         setInterval(updateClock, 1000);
@@ -132,4 +142,3 @@
 
 </body>
 </html>
-
