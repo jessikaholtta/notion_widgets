@@ -15,7 +15,7 @@
             align-items: center;
             height: 100vh;
             background-color: #ffffff;
-            font-family: 'Kaushan Script', cursive;
+            font-family: 'Kaushan Script', cursive; /* Ensuring both date and time use the same font */
             text-align: center;
         }
 
@@ -30,7 +30,6 @@
             font-size: 1.2em; /* Smaller size for time */
             color: #F8C8DC;
             letter-spacing: 0.1em;
-            font-family: 'Kaushan Script', cursive;
         }
     </style>
 </head>
@@ -56,7 +55,7 @@
             8: "𝕊⋅𝔼⋅ℙ⋅𝕋⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
             9: "𝕆⋅ℂ⋅𝕋⋅𝕆⋅𝔹⋅𝔼⋅ℝ",
             10: "ℕ⋅𝕆⋅𝕍⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ",
-            11: "𝔻⋅𝔼⋅ℂ⋅ℼ⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
+            11: "𝔻⋅𝔼⋅ℂ⋅𝔼⋅𝕄⋅𝔹⋅𝔼⋅ℝ"
         };
 
         // Mapping numbers to blackboard bold digits
@@ -65,15 +64,15 @@
             "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
         };
 
-        // Function to convert numbers into blackboard bold style with dots
+        // Function to convert numbers into blackboard bold style without dots between pairs
         function convertToBlackboardBold(num) {
-            return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
+            return String(num).split("").map(digit => numberMap[digit] || digit).join("");
         }
 
         // Get today's date
         const today = new Date();
         const month = monthMap[today.getMonth()]; // Get month in blackboard bold
-        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚⋅𝟟)
+        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚𝟟)
 
         // Format the final output: Month · Day
         const formattedDate = `${month}⋅${day}`;
@@ -81,12 +80,12 @@
         // Insert into HTML for date
         document.getElementById('dateMessage').innerHTML = formattedDate;
 
-        // Function to format the current time in 24-hour format with your custom font
+        // Function to format the current time in blackboard bold without dots between pairs
         function updateClock() {
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const hours = convertToBlackboardBold(now.getHours().toString().padStart(2, '0'));
+            const minutes = convertToBlackboardBold(now.getMinutes().toString().padStart(2, '0'));
+            const seconds = convertToBlackboardBold(now.getSeconds().toString().padStart(2, '0'));
             const timeString = `${hours}⋅${minutes}⋅${seconds}`;
             document.getElementById('digitalClock').innerHTML = timeString;
         }
