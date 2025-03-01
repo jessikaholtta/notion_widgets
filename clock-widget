@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock with Time Zone</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+
+        .clock {
+            font-size: 3em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .timezone {
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock"></div>
+    <div class="timezone" id="timezone"></div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString(); // Gets time based on user's time zone
+            document.getElementById("clock").textContent = timeString;
+            
+            // Display the time zone name
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById("timezone").textContent = `Time Zone: ${timeZone}`;
+        }
+
+        setInterval(updateClock, 1000); // Update the clock every second
+        updateClock(); // Initialize clock immediately
+    </script>
+</body>
+</html>
