@@ -64,15 +64,15 @@
             "5": "𝟝", "6": "𝟞", "7": "𝟟", "8": "𝟠", "9": "𝟡"
         };
 
-        // Function to convert numbers into blackboard bold style with dots
+        // Function to convert numbers into blackboard bold style without dots between pairs
         function convertToBlackboardBold(num) {
-            return String(num).split("").map(digit => numberMap[digit] || digit).join("⋅");
+            return String(num).split("").map(digit => numberMap[digit] || digit).join("");
         }
 
         // Get today's date
         const today = new Date();
         const month = monthMap[today.getMonth()]; // Get month in blackboard bold
-        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚⋅𝟟)
+        const day = convertToBlackboardBold(today.getDate()); // Convert day (27 → 𝟚𝟟)
 
         // Format the final output: Month · Day
         const formattedDate = `${month}⋅${day}`;
@@ -80,7 +80,7 @@
         // Insert into HTML for date
         document.getElementById('dateMessage').innerHTML = formattedDate;
 
-        // Function to format the current time in blackboard bold with dots
+        // Function to format the current time in blackboard bold without dots between pairs
         function updateClock() {
             const now = new Date();
             const hours = convertToBlackboardBold(now.getHours().toString().padStart(2, '0'));
